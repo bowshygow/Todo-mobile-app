@@ -1,14 +1,24 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
 import { TodoItemProps } from '../types';
 import { theme } from '../styles/theme';
 
 export const TodoItem: React.FC<TodoItemProps> = ({ todo, onToggle, onDelete }) => {
+  const router = useRouter();
+
+  const handlePress = () => {
+    router.push({
+      pathname: '/screens/TodoDetailsScreen',
+      params: { id: todo.id }
+    });
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.todoContent}
-        onPress={() => onToggle(todo.id)}
+        onPress={handlePress}
       >
         <Text style={[
           styles.todoText,
